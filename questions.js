@@ -6847,7 +6847,6 @@ const MODULES = {
     },
   ],
 },
-     {
  {
   label: "Нұсқа №9 — Java",
   questions: [
