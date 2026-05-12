@@ -6402,7 +6402,7 @@ const MODULES = {
           },
         ],
       },
-      {
+
   {
   label: "Нұсқа №8 — Java",
   questions: [
