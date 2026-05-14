@@ -972,35 +972,49 @@
 
         // ── SHOW QUESTION ──
         function showQuestion() {
-            const q = state.questions[state.current];
-            state.answered = false;
+    const q = state.questions[state.current];
+    state.answered = false;
 
-            document.getElementById('qNum').textContent = state.current + 1;
-            document.getElementById('qNumberLabel').textContent = `Вопрос ${state.current + 1} из ${state.questions.length}`;
-            document.getElementById('qText').textContent = q.q;
-            document.getElementById('scoreDisplay').textContent = state.score;
+    document.getElementById('qNum').textContent = state.current + 1;
+    document.getElementById('qNumberLabel').textContent =
+        `Вопрос ${state.current + 1} из ${state.questions.length}`;
 
-            const pct = (state.current / state.questions.length) * 100;
-            document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('qText').textContent = q.q;
+    document.getElementById('scoreDisplay').textContent = state.score;
 
-            const fb = document.getElementById('feedback');
-            fb.style.display = 'none';
-            fb.className = 'feedback';
+    const pct = (state.current / state.questions.length) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
 
-            const nextBtn = document.getElementById('nextBtn');
-            nextBtn.style.display = 'none';
+    const fb = document.getElementById('feedback');
+    fb.style.display = 'none';
+    fb.className = 'feedback';
 
-            const list = document.getElementById('optionsList');
-            list.innerHTML = '';
+    const nextBtn = document.getElementById('nextBtn');
+    nextBtn.style.display = 'none';
 
-            q.options.forEach((opt, i) => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn';
-                btn.innerText = `<span class="opt-label">${LABELS[i]}</span><span>${opt}</span>`;
-                btn.onclick = () => answer(i);
-                list.appendChild(btn);
-            });
-        }
+    const list = document.getElementById('optionsList');
+    list.innerHTML = '';
+
+    q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+
+        // span для буквы
+        const labelSpan = document.createElement('span');
+        labelSpan.className = 'opt-label';
+        labelSpan.textContent = LABELS[i];
+
+        // span для текста ответа
+        const textSpan = document.createElement('span');
+        textSpan.textContent = opt;
+
+        btn.append(labelSpan, textSpan);
+
+        btn.onclick = () => answer(i);
+
+        list.appendChild(btn);
+    });
+}
 
         // ── ANSWER ──
         function answer(idx) {
